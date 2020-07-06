@@ -1,24 +1,29 @@
 package com.example.demo.domain;
 
-import sun.plugin.javascript.navig.Link;
+import com.example.demo.core.model.AbstractTimeGeneratedIdEntity;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.Instant;
 
-public class Metadata {
-    private static final long serialVersionUID = 2L;
+@Entity
+@Table(name = "metadata")
+public class Metadata extends AbstractTimeGeneratedIdEntity{
 
     private String name;
-    private String description;
-    private String author;
-    private List<Link> links;
-    private ZonedDateTime time;
+    @Column(name = "description")
+    private String desc;
+    @Column(name = "time")
+    private Timestamp time;
     private String keywords;
+    @Column(name = "link_id")
+    private int linkId;
+    @Column(name = "user_id")
+    private int userId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @Transient
+    private Link link;
 
     public String getName() {
         return name;
@@ -28,35 +33,27 @@ public class Metadata {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public String getAuthor() {
-        return author;
+    public Link getLink() {
+        return link;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setLink(Link link) {
+        this.link = link;
     }
 
-    public List<Link> getLinks() {
-        return links;
-    }
-
-    public void setLinks(List<Link> links) {
-        this.links = links;
-    }
-
-    public ZonedDateTime getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(ZonedDateTime time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -68,33 +65,23 @@ public class Metadata {
         this.keywords = keywords;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Metadata metadata = (Metadata) o;
-        return Objects.equals(name, metadata.name) &&
-                Objects.equals(description, metadata.description) &&
-                Objects.equals(author, metadata.author) &&
-                Objects.equals(links, metadata.links) &&
-                Objects.equals(time, metadata.time) &&
-                Objects.equals(keywords, metadata.keywords);
+    public int getLinkId() {
+        return linkId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, author, links, time, keywords);
+    public void setLinkId(int linkId) {
+        this.linkId = linkId;
     }
 
-    @Override
-    public String toString() {
-        return "Metadata{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", author='" + author + '\'' +
-                ", links=" + links +
-                ", time=" + time +
-                ", keywords='" + keywords + '\'' +
-                '}';
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Metadata() {
+        super();
     }
 }

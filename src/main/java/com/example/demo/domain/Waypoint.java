@@ -1,27 +1,38 @@
 package com.example.demo.domain;
 
-import java.util.Date;
+import com.example.demo.core.model.AbstractTimeGeneratedIdEntity;
 
-public class Waypoint {
-    private Date time;
-    private Coordinate coordinate;
-    private String name = "";
-    private double elevation = .0;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
-    public Date getTime() {
-        return time;
+@Entity
+@Table(name = "way_point")
+public class Waypoint extends AbstractTimeGeneratedIdEntity {
+
+    @Column(name = "latitude")
+    private BigDecimal lat;
+    @Column(name = "longitude")
+    private BigDecimal lon;
+    private String name;
+    private String sym;
+
+    @Column(name = "gpx_id")
+    private int gpxId;
+
+    public BigDecimal getLat() {
+        return lat;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setLat(BigDecimal lat) {
+        this.lat = lat;
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
+    public BigDecimal getLon() {
+        return lon;
     }
 
-    public void setCoordinate(Coordinate coordinate) {
-        this.coordinate = coordinate;
+    public void setLon(BigDecimal lon) {
+        this.lon = lon;
     }
 
     public String getName() {
@@ -32,26 +43,23 @@ public class Waypoint {
         this.name = name;
     }
 
-    public double getElevation() {
-        return elevation;
+    public String getSym() {
+        return sym;
     }
 
-    public void setElevation(double elevation) {
-        this.elevation = elevation;
+    public void setSym(String sym) {
+        this.sym = sym;
     }
 
-    public double calculateDistanceTo(Waypoint otherPoint) {
-        // According to http://en.wikipedia.org/wiki/Earth_radius#Mean_radii
-        // earth has an equatorial radius of 6,378.137 kilometers.
-        final int R = 6378137;
+    public Waypoint() {
+        super();
+    }
 
-        if (otherPoint.getCoordinate() == null || getCoordinate() == null) {
-            return 0.0;
-        }
+    public int getGpxId() {
+        return gpxId;
+    }
 
-        return Math.acos(
-                Math.sin(Math.toRadians(getCoordinate().getLatitude())) * Math.sin(Math.toRadians(otherPoint.getCoordinate().getLatitude())) +
-                        Math.cos(Math.toRadians(getCoordinate().getLatitude())) * Math.cos(Math.toRadians(otherPoint.getCoordinate().getLatitude())) *
-                                Math.cos(Math.toRadians(otherPoint.getCoordinate().getLongitude() - getCoordinate().getLongitude()))) * R;
+    public void setGpxId(int gpxId) {
+        this.gpxId = gpxId;
     }
 }

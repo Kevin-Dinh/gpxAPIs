@@ -1,17 +1,10 @@
 package com.example.demo.core;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;
 
-@ApiModel(description = "All APIs will return either this model or a subclass of this model.")
 public class GenericApiResultDto {
 
-    @ApiModelProperty(
-            value = "200 if the API call succeeded, otherwise <> 200",
-            allowableValues = "{200, <>200}",
-            required = true)
     private HttpStatus statusCode;
 
     public GenericApiResultDto(HttpStatus statusCode, String message) {
@@ -34,7 +27,7 @@ public class GenericApiResultDto {
         return statusCode.value();
     }
 
-    @ApiModelProperty(value = "For global message regardless the fields which were sent in the request")
+    // @ApiModelProperty(value = "For global message regardless the fields which were sent in the request")
     private String message;
 
     public static com.example.demo.core.GenericApiResultDto ok() {
@@ -82,10 +75,6 @@ public class GenericApiResultDto {
         }
         public GenericApiResultDto build() {
             return new GenericApiResultDto(statusCode, message);
-        }
-
-        public String toString() {
-            return "GenericApiResultDto.GenericApiResultDtoBuilder(statusCode=" + this.statusCode + ", message=" + this.message + ")";
         }
     }
 }

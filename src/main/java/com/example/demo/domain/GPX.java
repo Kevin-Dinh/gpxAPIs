@@ -1,146 +1,84 @@
 package com.example.demo.domain;
 
+import com.example.demo.core.model.AbstractTimeGeneratedIdEntity;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "gpx")
-public class GPX {
+public class GPX extends AbstractTimeGeneratedIdEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
-    @Column(name = "name")
-    private String name;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "author")
-    private String author;
-    @Column(name = "link")
-    private String link;
-    @Column(name = "time")
-    private Timestamp time;
+    private String uri;
+    private String version;
+    private String creator;
+    @Column(name = "metadata_id")
+    private int metadataId;
 
     @Transient
-    private ArrayList<Track> tracks = new ArrayList<>();
+    private Metadata metadata;
+    @Transient
+    private ArrayList<Waypoint> wpt;
+    @Transient
+    private ArrayList<Track> trk;
 
-    @Column(name = "way_point_id")
-    private Integer wayPointId;
-    @Column(name = "track_id")
-    private Integer trackId;
-    @Column(name = "last_modified_at")
-    private Timestamp lastModifiedAt;
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-
-    public int getId() {
-        return id;
+    public String getUri() {
+        return uri;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public String getName() {
-        return name;
+    public String getVersion() {
+        return version;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
-    public String getAuthor() {
-        return author;
+    public Metadata getMetadata() {
+        return metadata;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 
-    public String getLink() {
-        return link;
+    public ArrayList<Waypoint> getWpt() {
+        return wpt;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setWpt(ArrayList<Waypoint> wpt) {
+        this.wpt = wpt;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public ArrayList<Track> getTrk() {
+        return trk;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setTrk(ArrayList<Track> trk) {
+        this.trk = trk;
     }
 
-    public void setTracks(ArrayList<Track> tracks) {
-        this.tracks = tracks;
+    public int getMetadataId() {
+        return metadataId;
     }
 
-    public Integer getWayPointId() {
-        return wayPointId;
-    }
-
-    public void setWayPointId(Integer wayPointId) {
-        this.wayPointId = wayPointId;
-    }
-
-    public Integer getTrackId() {
-        return trackId;
-    }
-
-    public void setTrackId(Integer trackId) {
-        this.trackId = trackId;
-    }
-
-    public Timestamp getLastModifiedAt() {
-        return lastModifiedAt;
-    }
-
-    public void setLastModifiedAt(Timestamp lastModifiedAt) {
-        this.lastModifiedAt = lastModifiedAt;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setMetadataId(int metadataId) {
+        this.metadataId = metadataId;
     }
 
     public GPX() {
-    }
-    /**
-     * Adds a track to the collection.
-     *
-     * <p>The track is added to the end of the collection. If it already
-     * existed in the collection before, it is added again.</p>
-     *
-     * @param track the track to be added
-     */
-    public void addTrack(Track track) {
-        tracks.add(track);
-    }
-
-    /**
-     * Returns the list of track that make up the collection.
-     *
-     * @return a list of tracks
-     */
-    public List<Track> getTracks() {
-        return tracks;
+        super();
     }
 }
