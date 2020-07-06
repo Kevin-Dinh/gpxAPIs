@@ -12,3 +12,5 @@ Steps to start and use the project:
     
 Notes:
     - Unit test is under development
+    - Dockerfile will be added later
+    - APIs with authorization is coming soon
